@@ -2,17 +2,26 @@ package core.Pieces;
 
 import java.util.ArrayList;
 
-import core.PieceType;
+import core.Board;
 import core.Player;
 import core.Position;
 
 public abstract class Piece {
 	private Player player;
 	private Position position;
+	
+//	In order to calculate valid moves, we need a back reference to the board.
+//	This is a bit nasty, but don't want masses of logic in the board class.
+	protected Board board;
 
-	public Piece(Player player, int x, int y){
+	public Piece(Player player, int x, int y, Board board){
 		this.player = player;
 		this.position = new Position(x,y);
+		this.board = board;
+	}
+	
+	public Player getPlayer(){
+		return this.player;
 	}
 
 	public int getPositionX() {

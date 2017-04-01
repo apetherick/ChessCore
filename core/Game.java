@@ -8,6 +8,7 @@ public class Game {
 		this.board = new Board();
 	}
 
+	//Prints the state of the game.
 	public void printState() {
 		board.printState();
 		

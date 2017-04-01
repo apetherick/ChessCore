@@ -30,5 +30,12 @@ public class Position {
 	public int getPositionY(){
 		return this.y;
 	}
+	
+	public boolean checkWithinBounds(){
+		return (this.x >= 0 &&
+				this.x <= Game.maxIndex &&
+				this.y >= 0 &&
+				this.y <= Game.maxIndex);
+	}
 
 }

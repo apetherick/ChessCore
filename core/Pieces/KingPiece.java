@@ -2,14 +2,14 @@ package core.Pieces;
 
 import java.util.ArrayList;
 
-import core.PieceType;
+import core.Board;
 import core.Player;
 import core.Position;
 
 public class KingPiece extends Piece {
 
-	public KingPiece(Player player, int x, int y) {
-		super(player, x, y);
+	public KingPiece(Player player, int x, int y, Board board) {
+		super(player, x, y, board);
 	}
 
 	public String getString() {

@@ -1,0 +1,26 @@
+#Chess
+
+--------------------
+Classes
+--------------------
+
+Game - holds the current state of play, next player etc. through an instance of the board class + any other objects
+
+Board - Holds the location of each piece, 
+
+Piece - Holds information about each piece. Can be queried with legal moves...?
+	- Should legal moves from from piece of board? Board should hold the location of each piece, so how would piece know? Maybe board just holds an array of pieces, which each have their position... Seems inefficient. And needs to know position of each other piece, so must come from board object...
+
+--------------------
+Calculating legal moves
+--------------------
+
+No actual requirement to enumerate legal moves, so far only need to determine if a move is legal...
+May be easier to calculate what squares a piece can legally move to, and determins if that move is present.
+
+---------------------
+Storing the board position
+----------------------
+
+Ideally don't want the board position to be stored in 2 places. There is a requirement to know from the piece context, where it is. At the same time, there is a want to know from the board context if there is a piece in each square...
+
