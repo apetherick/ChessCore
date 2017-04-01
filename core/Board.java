@@ -2,47 +2,55 @@ package core;
 
 import java.util.ArrayList;
 
+import core.Pieces.BishopPiece;
+import core.Pieces.KingPiece;
+import core.Pieces.KnightPiece;
+import core.Pieces.PawnPiece;
+import core.Pieces.Piece;
+import core.Pieces.QueenPiece;
+import core.Pieces.RookPiece;
+
 public class Board {
 	private ArrayList<Piece> pieces;
 	
 	public Board(){
 		pieces = new ArrayList<Piece>();
 		//White Pieces
-		pieces.add(new Piece(Player.WHITE, PieceType.ROOK, 0, 0));
-		pieces.add(new Piece(Player.WHITE, PieceType.KNIGHT, 1, 0));
-		pieces.add(new Piece(Player.WHITE, PieceType.BISHOP, 2, 0));
-		pieces.add(new Piece(Player.WHITE, PieceType.QUEEN, 3, 0));
-		pieces.add(new Piece(Player.WHITE, PieceType.KING, 4, 0));
-		pieces.add(new Piece(Player.WHITE, PieceType.BISHOP, 5, 0));
-		pieces.add(new Piece(Player.WHITE, PieceType.KNIGHT, 6, 0));
-		pieces.add(new Piece(Player.WHITE, PieceType.ROOK, 7, 0));
+		pieces.add(new RookPiece(Player.WHITE, 0, 0));
+		pieces.add(new KnightPiece(Player.WHITE, 1, 0));
+		pieces.add(new BishopPiece(Player.WHITE, 2, 0));
+		pieces.add(new QueenPiece(Player.WHITE, 3, 0));
+		pieces.add(new KingPiece(Player.WHITE, 4, 0));
+		pieces.add(new BishopPiece(Player.WHITE, 5, 0));
+		pieces.add(new KnightPiece(Player.WHITE, 6, 0));
+		pieces.add(new RookPiece(Player.WHITE, 7, 0));
 		//white pawns
-		pieces.add(new Piece(Player.WHITE, PieceType.PAWN, 0, 1));
-		pieces.add(new Piece(Player.WHITE, PieceType.PAWN, 1, 1));
-		pieces.add(new Piece(Player.WHITE, PieceType.PAWN, 2, 1));
-		pieces.add(new Piece(Player.WHITE, PieceType.PAWN, 3, 1));
-		pieces.add(new Piece(Player.WHITE, PieceType.PAWN, 4, 1));
-		pieces.add(new Piece(Player.WHITE, PieceType.PAWN, 5, 1));
-		pieces.add(new Piece(Player.WHITE, PieceType.PAWN, 6, 1));
-		pieces.add(new Piece(Player.WHITE, PieceType.PAWN, 7, 1));
+		pieces.add(new PawnPiece(Player.WHITE, 0, 1));
+		pieces.add(new PawnPiece(Player.WHITE, 1, 1));
+		pieces.add(new PawnPiece(Player.WHITE, 2, 1));
+		pieces.add(new PawnPiece(Player.WHITE, 3, 1));
+		pieces.add(new PawnPiece(Player.WHITE, 4, 1));
+		pieces.add(new PawnPiece(Player.WHITE, 5, 1));
+		pieces.add(new PawnPiece(Player.WHITE, 6, 1));
+		pieces.add(new PawnPiece(Player.WHITE, 7, 1));
 		//Black Pieces
-		pieces.add(new Piece(Player.BLACK, PieceType.ROOK, 0, 7));
-		pieces.add(new Piece(Player.BLACK, PieceType.KNIGHT, 1, 7));
-		pieces.add(new Piece(Player.BLACK, PieceType.BISHOP, 2, 7));
-		pieces.add(new Piece(Player.BLACK, PieceType.QUEEN, 3, 7));
-		pieces.add(new Piece(Player.BLACK, PieceType.KING, 4, 7));
-		pieces.add(new Piece(Player.BLACK, PieceType.BISHOP, 5, 7));
-		pieces.add(new Piece(Player.BLACK, PieceType.KNIGHT, 6, 7));
-		pieces.add(new Piece(Player.BLACK, PieceType.ROOK, 7, 7));
+		pieces.add(new RookPiece(Player.BLACK, 0, 7));
+		pieces.add(new KnightPiece(Player.BLACK, 1, 7));
+		pieces.add(new BishopPiece(Player.BLACK, 2, 7));
+		pieces.add(new QueenPiece(Player.BLACK, 3, 7));
+		pieces.add(new KingPiece(Player.BLACK, 4, 7));
+		pieces.add(new BishopPiece(Player.BLACK, 5, 7));
+		pieces.add(new KnightPiece(Player.BLACK, 6, 7));
+		pieces.add(new RookPiece(Player.BLACK, 7, 7));
 		//Black pawns
-		pieces.add(new Piece(Player.BLACK, PieceType.PAWN, 0, 6));
-		pieces.add(new Piece(Player.BLACK, PieceType.PAWN, 1, 6));
-		pieces.add(new Piece(Player.BLACK, PieceType.PAWN, 2, 6));
-		pieces.add(new Piece(Player.BLACK, PieceType.PAWN, 3, 6));
-		pieces.add(new Piece(Player.BLACK, PieceType.PAWN, 4, 6));
-		pieces.add(new Piece(Player.BLACK, PieceType.PAWN, 5, 6));
-		pieces.add(new Piece(Player.BLACK, PieceType.PAWN, 6, 6));
-		pieces.add(new Piece(Player.BLACK, PieceType.PAWN, 7, 6));
+		pieces.add(new PawnPiece(Player.BLACK, 0, 6));
+		pieces.add(new PawnPiece(Player.BLACK, 1, 6));
+		pieces.add(new PawnPiece(Player.BLACK, 2, 6));
+		pieces.add(new PawnPiece(Player.BLACK, 3, 6));
+		pieces.add(new PawnPiece(Player.BLACK, 4, 6));
+		pieces.add(new PawnPiece(Player.BLACK, 5, 6));
+		pieces.add(new PawnPiece(Player.BLACK, 6, 6));
+		pieces.add(new PawnPiece(Player.BLACK, 7, 6));
 		
 	}
 	//Gets the piece located at a given position, given by x and y co-ordinates.
