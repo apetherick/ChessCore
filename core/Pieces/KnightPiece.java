@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import core.Board;
 import core.Player;
 import core.Position;
+import core.PositionList;
 
 public class KnightPiece extends Piece {
 
@@ -17,7 +18,7 @@ public class KnightPiece extends Piece {
 	}
 
 	@Override
-	public ArrayList<Position> getLegalMoves() {
+	public PositionList getLegalMoves() {
 		// TODO Auto-generated method stub
 		return null;
 	}

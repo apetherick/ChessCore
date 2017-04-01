@@ -56,6 +56,9 @@ public class Board {
 		pieces.add(new PawnPiece(Player.BLACK, 7, 6, this));
 		
 	}
+	public void removePiece(Piece piece){
+		pieces.remove(piece);
+	}
 	//Gets the piece located at a given position, given by x and y co-ordinates.
 	//Returns null is nothing at that position.
 	public Piece GetPieceAtPosition(int x, int y){

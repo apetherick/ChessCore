@@ -7,6 +7,7 @@ import core.Board;
 import core.Move;
 import core.Player;
 import core.Position;
+import core.PositionList;
 
 public class BishopPiece extends Piece {
 
@@ -26,13 +27,13 @@ public class BishopPiece extends Piece {
 	 * If the piece is of the opposite colout, we can also move to that square.
 	 * 
 	 */
-	public ArrayList<Position> getLegalMoves() {
+	public PositionList getLegalMoves() {
 		
 		//The current position under consideration
 		Position consideredPosition = new Position(this.getPositionX(), this.getPositionY());
 		
 		//List of legal positions to return.
-		ArrayList<Position> legalPositions = new ArrayList<Position>();
+		PositionList legalPositions = new PositionList();
 
 		//Array of directions we can move in
 		ArrayList<Move> directions = new ArrayList<Move>();
@@ -56,12 +57,12 @@ public class BishopPiece extends Piece {
 						break;
 					} else {
 						//this piece here is theirs, we can take this.
-						legalPositions.add(consideredPosition);
+						legalPositions.addPosition(consideredPosition);
 						break;
 					}
 				} else {
 					//Square is clear, add the position and move again.
-					legalPositions.add(consideredPosition);
+					legalPositions.addPosition(consideredPosition);
 					consideredPosition.setPosition(consideredPosition.getPositionX() + move.deltaX, consideredPosition.getPositionY() + move.deltaY);
 				}
 			}

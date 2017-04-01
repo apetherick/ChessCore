@@ -37,5 +37,9 @@ public class Position {
 				this.y >= 0 &&
 				this.y <= Game.maxIndex);
 	}
+	
+	public String toString(){
+		return "x: "+this.x + " y: "+this.y;
+	}
 
 }

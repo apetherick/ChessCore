@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import core.Board;
 import core.Player;
 import core.Position;
+import core.PositionList;
 
 public abstract class Piece {
 	private Player player;
@@ -22,6 +23,11 @@ public abstract class Piece {
 	
 	public Player getPlayer(){
 		return this.player;
+	}
+	
+	public void setPosition(int x, int y){
+		this.setPositionX(x);
+		this.setPositionY(y);
 	}
 
 	public int getPositionX() {
@@ -42,6 +48,6 @@ public abstract class Piece {
 	
 	public abstract String getString();
 	
-	public abstract ArrayList<Position> getLegalMoves();
+	public abstract PositionList getLegalMoves();
 	
 }
