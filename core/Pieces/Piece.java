@@ -49,5 +49,8 @@ public abstract class Piece {
 	public abstract String getString();
 	
 	public abstract PositionList getLegalMoves();
+	public String toString(){
+		return this.getPlayer() + this.getClass().getName() + " at "+this.getPositionX() + ","+this.getPositionY()+"\r\n"; 
+	}
 	
 }

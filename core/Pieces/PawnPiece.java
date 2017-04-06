@@ -42,13 +42,9 @@ public class PawnPiece extends Piece {
 	@Override
 	public PositionList getLegalMoves() {
 		PositionList positions = new PositionList();
-//		Pawns can move foward 2 spaces for their first move
-//		Move forward 1 space  otherwise
-//		And take diagonally forward
 		int directionMultiplier = this.getPlayer()==Player.WHITE ? 1 : -1;
-//		Position under consideration
 		Position consideredPosition = new Position(this.getPositionX(), this.getPositionY());
-		//Try 1 forwards
+		//1 forwards
 		consideredPosition.setPositionY(consideredPosition.getPositionY() + (1*directionMultiplier));
 		if(consideredPosition.checkWithinBounds() && board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()) == null){
 			positions.addPosition(consideredPosition);
@@ -60,32 +56,24 @@ public class PawnPiece extends Piece {
 				}
 			}
 		}
-		//WHat about taking pieces?
-		consideredPosition.setPosition(this.getPositionX() + 1, this.getPositionY() + (1*directionMultiplier));
-		if(
-				consideredPosition.checkWithinBounds() &&
-				board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()) != null &&
-				board.GetPieceAtPosition(
-						consideredPosition.getPositionX(), 
-						consideredPosition.getPositionX()
-						)
-				.getPlayer() != this.getPlayer()
-				){
-			positions.addPosition(consideredPosition);
-		}
+		//diagonal left
 		consideredPosition.setPosition(this.getPositionX() - 1, this.getPositionY() + (1*directionMultiplier));
 		if(
 				consideredPosition.checkWithinBounds() &&
 				board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()) != null &&
-				board.GetPieceAtPosition(
-						consideredPosition.getPositionX(), 
-						consideredPosition.getPositionX()
-						)
-				.getPlayer() != this.getPlayer()
+				board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()).getPlayer() != this.getPlayer()
 				){
 			positions.addPosition(consideredPosition);
 		}
-		System.out.println("Returning the following positions:"+positions);
+		//diagonal right
+		consideredPosition.setPosition(this.getPositionX() + 1, this.getPositionY() + (1*directionMultiplier));
+		if(
+				consideredPosition.checkWithinBounds() &&
+				board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()) != null &&
+				board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()).getPlayer() != this.getPlayer()
+				){
+			positions.addPosition(consideredPosition);
+		}
 		return positions;
 	}
 
