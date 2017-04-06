@@ -38,17 +38,19 @@ public class KingPiece extends Piece {
 			//Move once
 			consideredPosition.setPosition(this.getPositionX() + move.deltaX, this.getPositionY() + move.deltaY);
 			Piece pieceAtPosition = this.board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY());
-			if(pieceAtPosition != null){
-				if(pieceAtPosition.getPlayer() == this.getPlayer()){
-					//The piece here is ours, can't go.
-					break;
+			if(consideredPosition.checkWithinBounds()){	
+				if(pieceAtPosition != null){
+					if(pieceAtPosition.getPlayer() == this.getPlayer()){
+						//The piece here is ours, can't go.
+						break;
+					}else{
+						//their piece, can take
+						legalPositions.addPosition(consideredPosition);
+					}
 				}else{
-					//their piece, can take
+					//no piece
 					legalPositions.addPosition(consideredPosition);
 				}
-			}else{
-				//no piece
-				legalPositions.addPosition(consideredPosition);
 			}
 		}
 		return legalPositions;

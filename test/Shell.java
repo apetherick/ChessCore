@@ -1,0 +1,26 @@
+package test;
+
+import java.util.Scanner;
+
+import core.Game;
+
+public class Shell {
+	public static void main(String[] args){
+		Game game = new Game();
+		System.out.println("Starting test");
+		game.printState();
+		while(true){
+			Scanner keyboard = new Scanner( System.in );
+	        System.out.print("Enter move(" + game.nextPlayer+"): ");
+	        String input = keyboard.nextLine();
+	        String[] numbersStr = input.split(" ");
+	        game.movePiece(Integer.parseInt(numbersStr[0]),
+	        		Integer.parseInt(numbersStr[1]), 
+	        		Integer.parseInt(numbersStr[2]), 
+	        		Integer.parseInt(numbersStr[3]));
+	        game.printState();
+
+		}
+	}
+
+}

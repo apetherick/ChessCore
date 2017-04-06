@@ -42,19 +42,21 @@ public PositionList getLegalMoves() {
 			while ( consideredPosition.checkWithinBounds() ){
 				//find if we've hit another piece
 				Piece pieceAtPosition = this.board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY());
-				if(pieceAtPosition != null){
-					if(pieceAtPosition.getPlayer() == this.getPlayer()){
-						//The piece here is ours, can't go any further.
-						break;
+				if(consideredPosition.checkWithinBounds()){
+					if(pieceAtPosition != null){
+						if(pieceAtPosition.getPlayer() == this.getPlayer()){
+							//The piece here is ours, can't go any further.
+							break;
+						} else {
+							//this piece here is theirs, we can take this.
+							legalPositions.addPosition(consideredPosition);
+							break;
+						}
 					} else {
-						//this piece here is theirs, we can take this.
+						//Square is clear, add the position and move again.
 						legalPositions.addPosition(consideredPosition);
-						break;
+						consideredPosition.setPosition(consideredPosition.getPositionX() + move.deltaX, consideredPosition.getPositionY() + move.deltaY);
 					}
-				} else {
-					//Square is clear, add the position and move again.
-					legalPositions.addPosition(consideredPosition);
-					consideredPosition.setPosition(consideredPosition.getPositionX() + move.deltaX, consideredPosition.getPositionY() + move.deltaY);
 				}
 			}
 		}

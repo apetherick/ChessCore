@@ -13,11 +13,17 @@ public class BishopPiece extends Piece {
 
 	public BishopPiece(Player player, int x, int y, Board board) {
 		super(player, x, y, board);
+		this.moves.add(new Move(1, 1, false, true));
+		this.moves.add(new Move(-1, 1, false, true));
+		this.moves.add(new Move(1, -1, false, true));
+		this.moves.add(new Move(-1, -1, false, true));
+		
 	}
 
 	public String getString() {
 		return this.getPlayer() == Player.WHITE?"WB" : "BB";
 	}
+
 
 	@Override
 	/*
