@@ -16,7 +16,7 @@ public class BishopPiece extends Piece {
 	}
 
 	public String getString() {
-		return "B";
+		return this.getPlayer() == Player.WHITE?"WB" : "BB";
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class BishopPiece extends Piece {
 		//each position
 		for(Move move:directions){
 			//Move once
-			consideredPosition.setPosition(consideredPosition.getPositionX() + move.deltaX, consideredPosition.getPositionY() + move.deltaY);
+			consideredPosition.setPosition(this.getPositionX() + move.deltaX, this.getPositionY() + move.deltaY);
 			//check bounds
 			while ( consideredPosition.checkWithinBounds() ){
 				//find if we've hit another piece

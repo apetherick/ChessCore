@@ -72,19 +72,21 @@ public class Board {
 	
 	//Prints the current state of the board.
 	public void printState(){
+		System.out.println("-------------------------------------");
 		for (int y = Game.maxIndex; y >=0 ; y--){
 			String line = Integer.toString(y); 
 			for (int x = 0; x <= Game.maxIndex; x++){
 				Piece piece = GetPieceAtPosition(x,y);
 				if(piece != null){
-					line = line + " " + GetPieceAtPosition(x,y).getString();
+					line = line + " | " + GetPieceAtPosition(x,y).getString();
 				}else{
-					line = line + "  ";
+					line = line + " |   ";
 				}
 			}
 			System.out.println(line);
+			System.out.println("------------------------------------------");
 		}
-		System.out.println("  0 1 2 3 4 5 6 7");
+		System.out.println("    0     1    2    3    4    5    6    7");
 	}
 	public void printList(){
 		System.out.println(this.pieces);

@@ -17,8 +17,11 @@ public class Game {
 			System.out.println("No piece at given position");
 			return;
 		}else{
-			System.out.println("Valid piece to move");
+			System.out.println(piece +" chosen to move to "+ newX + ", "+ newY );
 			System.out.println(piece.getLegalMoves());
+			if(piece.getPlayer() != nextPlayer){
+				System.out.println("Wrong Player");
+			}
 			if(piece.getPlayer() == nextPlayer && piece.getLegalMoves().containsChessPosition(new Position(newX, newY))){
 				Piece taken = board.GetPieceAtPosition(newX, newY);
 				if(taken != null){

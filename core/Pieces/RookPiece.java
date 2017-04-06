@@ -14,7 +14,7 @@ public class RookPiece extends Piece {
 	}
 
 	public String getString() {
-		return "R";
+		return this.getPlayer() == Player.WHITE?"WR" : "BR";
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class PawnPiece extends Piece {
 	}
 
 	public String getString() {
-		return "P";
+		return this.getPlayer() == Player.WHITE?"WP" : "BP";
 	}
 
 	@Override

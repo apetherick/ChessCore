@@ -14,7 +14,7 @@ public class KingPiece extends Piece {
 	}
 
 	public String getString() {
-		return "K";
+		return this.getPlayer() == Player.WHITE?"WK" : "BK";
 	}
 
 	@Override

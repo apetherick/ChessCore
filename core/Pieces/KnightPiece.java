@@ -14,7 +14,7 @@ public class KnightPiece extends Piece {
 	}
 
 	public String getString() {
-		return "k";
+		return this.getPlayer() == Player.WHITE?"Wk" : "Bk";
 	}
 
 	@Override

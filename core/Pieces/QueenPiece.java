@@ -14,7 +14,7 @@ public class QueenPiece extends Piece {
 	}
 
 	public String getString() {
-		return "Q";
+		return this.getPlayer() == Player.WHITE?"WQ" : "BQ";
 	}
 
 	@Override

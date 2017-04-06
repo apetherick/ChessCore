@@ -11,8 +11,14 @@ public class Main {
 		game.printState();
 		game.movePiece(1, 6, 1, 4);
 		game.printState();
-		//TODO: This move fails, and shouldn't. Fix.
 		game.movePiece(0, 3, 1, 4);
+		game.printState();
+		game.movePiece(0, 6, 0, 5);
+		game.movePiece(3,1,3,3);
+		game.movePiece(0, 5, 0, 4);
+		game.movePiece(2, 0, 5, 3);
+		game.movePiece(0, 4, 0,3);
+		game.movePiece(5, 3, 4, 4);
 		game.printState();
 	}
 
