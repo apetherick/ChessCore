@@ -3,6 +3,7 @@ package core;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@SuppressWarnings("serial")
 public class PositionList extends ArrayList<Position> {
 
 	public PositionList() {

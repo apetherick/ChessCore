@@ -9,8 +9,9 @@ public class Shell {
 		Game game = new Game();
 		System.out.println("Starting test");
 		game.printState();
+		@SuppressWarnings("resource")
+		Scanner keyboard = new Scanner( System.in );
 		while(true){
-			Scanner keyboard = new Scanner( System.in );
 	        System.out.print("Enter move(" + game.nextPlayer+"): ");
 	        String input = keyboard.nextLine();
 	        String[] numbersStr = input.split(" ");
@@ -19,7 +20,6 @@ public class Shell {
 	        		Integer.parseInt(numbersStr[2]), 
 	        		Integer.parseInt(numbersStr[3]));
 	        game.printState();
-
 		}
 	}
 
