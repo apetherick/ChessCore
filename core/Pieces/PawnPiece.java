@@ -1,20 +1,19 @@
 package core.Pieces;
 
-import java.util.ArrayList;
-
+import java.lang.Math;
 import core.Board;
 import core.Move;
 import core.Player;
-import core.Position;
-import core.PositionList;
 
 public class PawnPiece extends Piece {
 	
-	private boolean hasMoved;
-
 	public PawnPiece(Player player, int x, int y, Board board) {
 		super(player, x, y, board);
-		hasMoved = false;
+		int multiplier = player == Player.WHITE?1:-1;
+		this.moves.add(new Move(0, 1 * multiplier, false, false, false));
+		this.moves.add(new Move(0, 2 * multiplier, false, false, false));
+		this.moves.add(new Move(1, 1 * multiplier, true, true, false));
+		this.moves.add(new Move(-1, 1 * multiplier, true, true, false));
 	}
 
 	public String getString() {
@@ -24,59 +23,24 @@ public class PawnPiece extends Piece {
 	@Override
 	public void setPositionX(int positionX) {
 		super.setPositionX(positionX);
-		this.hasMoved = true;
+		removeDoubleMove();
 	}
 
 	@Override
 	public void setPositionY(int positionY) {
 		super.setPositionY(positionY);
-		this.hasMoved = true;
+		removeDoubleMove();
 	}
 	
 	@Override
 	public void setPosition(int x, int y){
-		this.setPositionX(x);
-		this.setPositionY(y);
+		super.setPosition(x, y);
+		removeDoubleMove();
 	}
-
-	@Override
-	public PositionList getLegalMoves() {
-		PositionList positions = new PositionList();
-		int directionMultiplier = this.getPlayer()==Player.WHITE ? 1 : -1;
-		Position consideredPosition = new Position(this.getPositionX(), this.getPositionY());
-		//1 forwards
-		consideredPosition.setPositionY(consideredPosition.getPositionY() + (1*directionMultiplier));
-		if(consideredPosition.checkWithinBounds() && board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()) == null){
-			positions.addPosition(consideredPosition);
-			//we know we've got a clear space ahead. If we can move one, maybe we can move 2
-			if(!this.hasMoved){
-				consideredPosition.setPositionY(consideredPosition.getPositionY() + (1*directionMultiplier));
-				if(consideredPosition.checkWithinBounds() && board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()) == null){
-					positions.addPosition(consideredPosition);
-				}
-			}
-		}
-		//diagonal left
-		consideredPosition.setPosition(this.getPositionX() - 1, this.getPositionY() + (1*directionMultiplier));
-		if(
-				consideredPosition.checkWithinBounds() &&
-				board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()) != null &&
-				board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()).getPlayer() != this.getPlayer()
-				){
-			positions.addPosition(consideredPosition);
-		}
-		//diagonal right
-		consideredPosition.setPosition(this.getPositionX() + 1, this.getPositionY() + (1*directionMultiplier));
-		if(
-				consideredPosition.checkWithinBounds() &&
-				board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()) != null &&
-				board.GetPieceAtPosition(consideredPosition.getPositionX(), consideredPosition.getPositionY()).getPlayer() != this.getPlayer()
-				){
-			positions.addPosition(consideredPosition);
-		}
-		return positions;
-	}
-
 	
-
+	private void removeDoubleMove(){
+		if(Math.abs(this.moves.get(1).deltaX) == 2){
+			this.moves.remove(1);
+		}
+	}
 }
