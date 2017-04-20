@@ -2,6 +2,8 @@ package core;
 
 import java.util.ArrayList;
 
+import org.omg.CORBA.DynAnyPackage.Invalid;
+
 import core.Pieces.BishopPiece;
 import core.Pieces.KingPiece;
 import core.Pieces.KnightPiece;
@@ -59,6 +61,9 @@ public class Board {
 	public void removePiece(Piece piece){
 		pieces.remove(piece);
 	}
+	public void addPiece(Piece piece){
+		pieces.add(piece);
+	}
 	//Gets the piece located at a given position, given by x and y co-ordinates.
 	//Returns null is nothing at that position.
 	public Piece GetPieceAtPosition(int x, int y){
@@ -68,6 +73,33 @@ public class Board {
 			}
 		}
 		return null;
+	}
+	
+	public boolean checkForCheck(Player player) throws InvalidBoardState{
+		KingPiece playerKing = null;
+		for (Piece piece : pieces){
+			if (piece.getPlayer() == player && 
+					piece instanceof KingPiece){
+				playerKing = (KingPiece) piece;
+			}
+		}
+		if (playerKing == null){
+			throw new InvalidBoardState("No king on board");
+		}
+		Player otherPlayer = player == Player.WHITE ? Player.BLACK : Player.WHITE;
+		for( Piece piece : pieces){
+			if (piece.getPlayer() == otherPlayer){
+				for(Position pos : piece.getLegalMoves()){
+					if (pos.getPositionX() == playerKing.getPositionX() && pos.getPositionY() == playerKing.getPositionY()){
+						System.out.println("CHECK - See Below:");
+						System.out.println(piece);
+						System.out.println(pos);
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	//Prints the current state of the board.
@@ -91,6 +123,7 @@ public class Board {
 	public void printList(){
 		System.out.println(this.pieces);
 	}
+
 
 }
 

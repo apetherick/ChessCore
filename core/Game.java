@@ -11,7 +11,7 @@ public class Game {
 		this.board = new Board();
 	}
 	
-	public void movePiece(int x, int y, int newX, int newY){
+	public void movePiece(int x, int y, int newX, int newY) throws InvalidBoardState{
 		Piece piece = board.GetPieceAtPosition(x, y);
 		if (piece == null){
 			System.out.println("No piece at given position");
@@ -28,7 +28,20 @@ public class Game {
 					board.removePiece(taken);
 				}
 				piece.setPosition(newX, newY);
+				if(board.checkForCheck(piece.getPlayer())){
+					//This move has put our king in check. Undo.
+					System.out.println("THIS MOVE PUTS YOUR KING IN CHECK");
+					piece.setPosition(x, y);
+					if (taken != null){
+						board.addPiece(taken);
+					}
+					//nasty hack.
+					togglePlayer();
+				}
 				togglePlayer();
+				if(board.checkForCheck(nextPlayer)){
+					System.out.println("CHECK");
+				}
 			}else{
 				System.out.println("Invalid move...");
 			}

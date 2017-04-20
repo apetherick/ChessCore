@@ -76,12 +76,17 @@ public abstract class Piece {
 		for(Move move:this.moves){
 			consideredPosition.setPosition(this.getPositionX() + move.deltaX, this.getPositionY() + move.deltaY);
 			//Do it once
+			boolean didOnce = false;
 			if(consideredPosition.checkWithinBounds() && checkMove(this, consideredPosition, move.mayTake, move.mustTake)){
 				legalPositions.addPosition(consideredPosition);
+				didOnce = true;
 			}
+			
+			//TODO - STOP IT HOPPING OVER PIECES
+			//Putting a rook in line with the king with a pawn in between causes a check.
 			//do it again?
 			consideredPosition.setPosition(consideredPosition.getPositionX() + move.deltaX, consideredPosition.getPositionY() + move.deltaY);
-			while ( consideredPosition.checkWithinBounds() && move.repeatable){
+			while ( consideredPosition.checkWithinBounds() && move.repeatable && didOnce){
 				if(checkMove(this, consideredPosition, move.mayTake, move.mustTake)){
 					legalPositions.addPosition(consideredPosition);
 					consideredPosition.setPosition(consideredPosition.getPositionX() + move.deltaX, consideredPosition.getPositionY() + move.deltaY);

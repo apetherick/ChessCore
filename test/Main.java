@@ -1,9 +1,10 @@
 package test;
 
 import core.Game;
+import core.InvalidBoardState;
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidBoardState {
 		Game game = new Game();
 		System.out.println("Starting test");
 		game.printState();
