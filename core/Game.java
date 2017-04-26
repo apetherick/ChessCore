@@ -11,14 +11,14 @@ public class Game {
 		this.board = new Board();
 	}
 	
-	public void movePiece(int x, int y, int newX, int newY) throws InvalidBoardState{
+	public void movePiece(int x, int y, int newX, int newY, boolean internal) throws InvalidBoardState{
 		Piece piece = board.GetPieceAtPosition(x, y);
 		if (piece == null){
 			System.out.println("No piece at given position");
 			return;
 		}else{
-			System.out.println(piece +" chosen to move to "+ newX + ", "+ newY );
-			System.out.println(piece.getLegalMoves());
+			System.out.println(piece + " chosen to move to "+ newX + ", "+ newY );
+			System.out.println("Legal moves"+ piece.getLegalMoves());
 			if(piece.getPlayer() != nextPlayer){
 				System.out.println("Wrong Player");
 			}
@@ -28,19 +28,33 @@ public class Game {
 					board.removePiece(taken);
 				}
 				piece.setPosition(newX, newY);
-				if(board.checkForCheck(piece.getPlayer())){
-					//This move has put our king in check. Undo.
-					System.out.println("THIS MOVE PUTS YOUR KING IN CHECK");
-					piece.setPosition(x, y);
-					if (taken != null){
-						board.addPiece(taken);
-					}
-					//nasty hack.
-					togglePlayer();
-				}
 				togglePlayer();
-				if(board.checkForCheck(nextPlayer)){
-					System.out.println("CHECK");
+				if(! internal){
+					if(board.checkForCheck(piece.getPlayer())){
+						//This move has put (or kept) our king in check. Undo.
+						System.out.println("The king is in check after this move.");
+						piece.setPosition(x, y);
+						if (taken != null){
+							board.addPiece(taken);
+						}
+						//nasty hack.
+						togglePlayer();
+					}
+					//check if we checkmated the other player.
+					if(board.checkForCheckmate(nextPlayer, this)){
+						System.out.println("CHECKMATE");
+						//TODO : Fools mate can be used to test this.
+						// It's not returning the correct moves of the queen
+						// and so not picking up on fools mate.
+						//Suspect it's identifying a taken piece and then 
+						// not bothering to go any further
+						//probablt need to reset the "taken" variable.
+					}
+					//check if we checked the other player
+					if(board.checkForCheck(nextPlayer)){
+						System.out.println("CHECK");
+
+					}
 				}
 			}else{
 				System.out.println("Invalid move...");
@@ -48,7 +62,7 @@ public class Game {
 		}
 	}
 	
-	private void togglePlayer(){
+	public void togglePlayer(){
 		if (nextPlayer == Player.WHITE){
 			nextPlayer = Player.BLACK;
 		}else{

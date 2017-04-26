@@ -16,6 +16,7 @@ public abstract class Piece {
 //	In order to calculate valid moves, we need a back reference to the board.
 //	This is a bit nasty, but don't want masses of logic in the board class.
 	protected Board board;
+	protected Boolean taking = false;
 
 	public Piece(Player player, int x, int y, Board board){
 		this.player = player;
@@ -54,10 +55,19 @@ public abstract class Piece {
 	public boolean checkMove(Piece piece, Position position, boolean mayTake, boolean mustTake){
 		Piece pieceAtPosition = this.board.GetPieceAtPosition(position.getPositionX(), position.getPositionY());
 		if (pieceAtPosition != null){
-			if(pieceAtPosition.getPlayer() == this.getPlayer() && (mayTake || mustTake)){
+			if(pieceAtPosition.getPlayer() == this.getPlayer()){
+				//our piece is there
 				return false;
 			}else{
-				return true;
+				if((mayTake || mustTake)){
+					//other player piece there, and we can take
+					this.taking = true;
+					return true;
+				}else{
+					//other players piece there, but this move may not take
+					return false;
+				}
+				
 			}
 		}else{
 			if (!mustTake){
@@ -82,11 +92,9 @@ public abstract class Piece {
 				didOnce = true;
 			}
 			
-			//TODO - STOP IT HOPPING OVER PIECES
-			//Putting a rook in line with the king with a pawn in between causes a check.
 			//do it again?
 			consideredPosition.setPosition(consideredPosition.getPositionX() + move.deltaX, consideredPosition.getPositionY() + move.deltaY);
-			while ( consideredPosition.checkWithinBounds() && move.repeatable && didOnce){
+			while ( consideredPosition.checkWithinBounds() && move.repeatable && didOnce && !taking){
 				if(checkMove(this, consideredPosition, move.mayTake, move.mustTake)){
 					legalPositions.addPosition(consideredPosition);
 					consideredPosition.setPosition(consideredPosition.getPositionX() + move.deltaX, consideredPosition.getPositionY() + move.deltaY);
@@ -96,13 +104,15 @@ public abstract class Piece {
 				}
 			}
 		}
+		taking = false;
+		
 		return legalPositions;
 
 	}
 	
 	
 	public String toString(){
-		return this.getPlayer() + this.getClass().getName() + " at "+this.getPositionX() + ","+this.getPositionY()+"\r\n"; 
+		return this.getPlayer() + " " + this.getClass().getSimpleName() + " at "+this.getPositionX() + ","+this.getPositionY(); 
 	}
 	
 }

@@ -19,7 +19,8 @@ public class Shell {
 		        game.movePiece(Integer.parseInt(numbersStr[0]),
 		        		Integer.parseInt(numbersStr[1]), 
 		        		Integer.parseInt(numbersStr[2]), 
-		        		Integer.parseInt(numbersStr[3]));
+		        		Integer.parseInt(numbersStr[3])
+		        		, false);
 		        game.printState();
 		}
 	}

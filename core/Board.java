@@ -74,8 +74,57 @@ public class Board {
 		}
 		return null;
 	}
+	//Checks if the given player is in checkmate with the current state of the board.
+	public boolean checkForCheckmate(Player player, Game game) throws InvalidBoardState{
+		
+		System.out.println("Checking checkmate for "+player);
+		System.out.println("Trying moves of "+player);
+		KingPiece playerKing = null;
+		//get the players king.
+		for (Piece piece : pieces){
+				if (piece.getPlayer() == player && piece instanceof KingPiece){
+					playerKing = (KingPiece) piece;
+				}
+		}
+		if(playerKing == null){
+			throw new InvalidBoardState("No king on board");
+		}
+		//check all our moves and see if any of them result in us not being in check.
+		for (Piece piece : pieces){
+			if(piece.getPlayer() == player){
+				System.out.println("Checking "+piece);
+				for(Position pos : piece.getLegalMoves()){
+					System.out.println("checking"+pos);
+					int oldx = piece.getPositionX();
+					int oldy = piece.getPositionY();
+					Piece taken = GetPieceAtPosition(pos.getPositionX(), pos.getPositionY());
+					game.movePiece(piece.getPositionX(), piece.getPositionY(), pos.getPositionX(), pos.getPositionY(), true);
+					if(!checkForCheck(player)){
+						//Not in check. Reset board and return false.
+						piece.setPosition(oldx, oldy);
+						if (taken != null){
+							addPiece(taken);
+						}
+						game.togglePlayer();
+						System.out.println("Move found where we're not in check, therefore not checkmate");
+						return false;
+					}
+					//Still in check. Reset board and try again
+					piece.setPosition(oldx, oldy);
+					if (taken != null){
+						addPiece(taken);
+					}
+					System.out.println("toggling back");
+					game.togglePlayer();
+				}
+			}
+		}
+		return true;
+	}
 	
+	//Checks if the given player is in check with the current state of the board.
 	public boolean checkForCheck(Player player) throws InvalidBoardState{
+		System.out.println("Checking for check"+player);
 		KingPiece playerKing = null;
 		for (Piece piece : pieces){
 			if (piece.getPlayer() == player && 
@@ -89,11 +138,10 @@ public class Board {
 		Player otherPlayer = player == Player.WHITE ? Player.BLACK : Player.WHITE;
 		for( Piece piece : pieces){
 			if (piece.getPlayer() == otherPlayer){
+				System.out.println("Looking at "+piece+" for check ---" + piece.getLegalMoves());
 				for(Position pos : piece.getLegalMoves()){
 					if (pos.getPositionX() == playerKing.getPositionX() && pos.getPositionY() == playerKing.getPositionY()){
-						System.out.println("CHECK - See Below:");
-						System.out.println(piece);
-						System.out.println(pos);
+						System.out.println("CHECK. King at "+pos+" threatened by "+piece);
 						return true;
 					}
 				}
